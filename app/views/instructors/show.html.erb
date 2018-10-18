@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Instructor middle:</strong>
+  <%= @instructor.instructor_middle %>
+</p>
+
+<p>
+  <strong>Instructor last:</strong>
+  <%= @instructor.instructor_last %>
+</p>
+
+<p>
+  <strong>Instructor first:</strong>
+  <%= @instructor.instructor_first %>
+</p>
+
+<p>
+  <strong>Instructor email:</strong>
+  <%= @instructor.instructor_email %>
+</p>
+
+<p>
+  <strong>Instructor:</strong>
+  <%= @instructor.instructor_id %>
+</p>
+
+<%= link_to 'Edit', edit_instructor_path(@instructor) %> |
+<%= link_to 'Back', instructors_path %>

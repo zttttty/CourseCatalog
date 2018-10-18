@@ -1,0 +1,24 @@
+development:
+  host: localhost
+  adapter: postgresql
+  encoding: unicode
+  database: CourseCatalog
+  pool: 5
+  username: zttttty
+  password: 089966
+#
+# test:
+#   adapter: postgresql
+#   encoding: unicode
+#   database: CourseCatalog
+#   pool: 5
+#   username: zttttty
+#   password: 089966
+#
+# production:
+#   adapter: postgresql
+#   encoding: unicode
+#   database: CourseCatalog
+#   pool: 5
+#   username: zttttty
+#   password: 089966
