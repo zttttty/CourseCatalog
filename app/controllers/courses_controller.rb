@@ -21,20 +21,23 @@ class CoursesController < ApplicationController
   def edit
   end
 
-  # POST /courses
-  # POST /courses.json
-  def create
-    @course = Course.new(course_params)
+  def search
+  end
 
-    respond_to do |format|
-      if @course.save
-        format.html { redirect_to @course, notice: 'Course was successfully created.' }
-        format.json { render :show, status: :created, location: @course }
-      else
-        format.html { render :new }
-        format.json { render json: @course.errors, status: :unprocessable_entity }
-      end
+  def search_courses
+    puts "start searching..."
+    @course_list = []
+    if !search_params[:course_name].blank? and search_params[:subject_id].blank?
+      @course_list = Course.where("course_name LIKE ?","#{search_params[:course_name]}")
+    elsif search_params[:course_name].blank? and !search_params[:subject_id].blank?
+      @course_list = Course.where(subject_id: search_params[:subject_id])
+    elsif !search_params[:course_name].blank? and !search_params[:subject_id].blank?
+      list1 = Course.where("course_name LIKE ?", "%#{search_params[:course_name]}%")
+      list2 = (Course.where(subject_id: search_params[:subject_id]))
+      @course_list = list1 & list2
     end
+    puts "course list size: #{@course_list.size}"
+    render 'search'
   end
 
   # PATCH/PUT /courses/1
@@ -61,14 +64,8 @@ class CoursesController < ApplicationController
     end
   end
 
-  # private
-  #   # Use callbacks to share common setup or constraints between actions.
-  #   def set_course
-  #     @course = Course.find(params[:id])
-  #   end
-  #
-  #   # Never trust parameters from the scary internet, only allow the white list through.
-  #   def course_params
-  #     params.require(:course).permit(:course_name, :course_description, :course_id)
-  #   end
+  private
+  def search_params
+    params
+  end
 end

@@ -12,13 +12,24 @@ class EnrollmentsController < ApplicationController
   def show
   end
 
-  # GET /enrollments/new
-  def new
-    @enrollment = Enrollment.new
-  end
 
   # GET /enrollments/1/edit
   def edit
+  end
+
+  def new
+    user_id = session[:user_id]
+    course_id = params[:course_id]
+    e_exist = Enrollment.where(user_id: user_id, course_id: course_id)
+    if !e_exist.blank?
+      flash[:danger] = 'You have enrolled this course!'
+    else
+      e = Enrollment.new(user_id: user_id, course_id: course_id)
+      if e.save
+        flash[:success] = 'Enroll successfully'
+      end
+    end
+    redirect_to(:action => 'my_course', :controller=>"sessions")
   end
 
   # POST /enrollments
@@ -71,4 +82,6 @@ class EnrollmentsController < ApplicationController
     def enrollment_params
       params.require(:enrollment).permit(:user_id, :course_id)
     end
+
+
 end

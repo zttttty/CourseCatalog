@@ -9,8 +9,10 @@
       <h1> Log in </h1>
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
-        <%= form_for @user, url: {action: "check_login"} do |f| %>
-          <%= render 'common/error_messages' %>
+          <% flash.each do |message_type, message| %>
+            <div class="alert alert-<%= message_type %>"><%= message %></div>
+          <% end %>
+        <%= form_for(:session, url: login_path) do |f| %>
 
           <%= f.label :name %>
           <%= f.text_field :name, class: 'form-control' %>
@@ -20,6 +22,7 @@
 
           <%= f.submit "Log in", class: "btn btn-primary" %>
         <% end %>
+        <p>New user? <%= link_to "Sign up now!", 'signup' %></p>
       </div>
       </div>
     </div>
